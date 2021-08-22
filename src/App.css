@@ -1,0 +1,21 @@
+body {
+  background-color: #212121;
+  font-family: 'Red Hat Display', sans-serif;
+}
+
+.title {
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+}
+
+.copy-icon ion-icon{
+  font-size: 30px !important;
+  color: #fff;
+  fill: #fff;
+}
+
+button.copy-icon {
+  background-color: transparent;
+  border: none;
+}
