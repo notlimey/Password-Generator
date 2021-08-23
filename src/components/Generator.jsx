@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import CloseIcon from '@material-ui/icons/Close';
+import DoneIcon from '@material-ui/icons/Done';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {
     numbers,
     upperCaseLetters,
@@ -12,13 +14,31 @@ import {
 const COPY_SUCCESS = 'Password successfully copied to clipboard'
 
 function Generator() {
-    const [moreThan20, setMoreThan20] = useState(false);
+
+
+    const [moreThan20, setMoreThan20] = useState(true);
     const [password, setPassword] = useState('')
-    const [passwordLength, setPasswordLength] = useState(20)
+    const [passwordLength, setPasswordLength] = useState(35)
     const [includeUppercase, setIncludeUppercase] = useState(true)
     const [includeLowercase, setIncludeLowercase] = useState(true)
     const [includeNumbers, setIncludeNumbers] = useState(true)
     const [includeSymbols, setIncludeSymbols] = useState(true)
+    
+    useEffect(() => {
+        if (
+            !includeUppercase &&
+            !includeLowercase &&
+            !includeNumbers &&
+            !includeSymbols
+          ) {
+            return;
+        }
+        
+        if(moreThan20 === false && passwordLength >= 31){
+            setPasswordLength(30);
+        }
+        handleGeneratePassword();
+    }, [moreThan20, passwordLength, includeLowercase, includeNumbers, includeUppercase, includeSymbols])
 
     const handleGeneratePassword = (e) => {
         if (
@@ -63,7 +83,7 @@ function Generator() {
           const characterIndex = Math.round(Math.random() * characterListLength)
           password = password + characterList.charAt(characterIndex)
         }
-        notify('Success!', false)
+
         return password
     }
 
@@ -78,7 +98,7 @@ function Generator() {
 
     const notify = (message, hasError = false) => {
     if (hasError) {
-        toast.error(message, {
+        toast.error(<div><CloseIcon style={{color: 'red', verticalAlign: 'middle'}} />  {message}</div>, {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: true,
@@ -93,7 +113,7 @@ function Generator() {
           },
         })
     } else {
-        toast(message, {
+        toast(<div><DoneIcon style={{color: 'green', verticalAlign: 'middle'}} />  {message}</div>, {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: true,
@@ -120,103 +140,131 @@ function Generator() {
     }
 
     return (
-        <div>
-            <div>
-                <lable>More than 20 characters long</lable>
-                <input 
-                    defaultValue={moreThan20}
-                    onChange={(e) => setMoreThan20(e.target.checked)}
-                    type="checkbox"
-                    id='more-than-20'
-                    name='more-than-20'
-                />
-
-            </div>
-            <button onClick={handleGeneratePassword} className='generator__btn'>
-                Generate Password
-            </button>
-            <ToastContainer
-                position='top-right'
-                autoClose={5000}
-                hideProgressBar={true}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
-            <div>
-
-                <label htmlFor='password-strength'>Password length: {passwordLength}</label>
-                {moreThan20 ? 
+        <>
+            <div className="Generator">
+                <div className="longer-than-30">
+                    <lable>More than 30 characters long? </lable>
+                    <input 
+                        onChange={(e) => setMoreThan20(e.target.checked)}
+                        type="checkbox"
+                        id='more-than-20'
+                        name='more-than-20'
+                        checked={moreThan20}
+                    />
+                </div>
+                <div className="generator__btn_div">
+                    <button onClick={handleGeneratePassword} className='generator__btn'>
+                    <LockOutlinedIcon style={{verticalAlign: 'middle'}} /> <span style={{verticalAlign: 'middle'}}>Generate Password</span>
+                    </button>
+                </div>
                 
-                <input
-                    defaultValue={passwordLength}
-                    onChange={(e) => setPasswordLength(e.target.value)}
-                    type='number'
-                    id='password-strength'
-                    name='password-strength'
-                    min='0'
+                <ToastContainer
+                    position='top-right'
+                    autoClose={5000}
+                    hideProgressBar={true}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
                 />
+                <div className="length">
+                    <label htmlFor='password-strength'>Length: </label>
+                    {moreThan20 ? 
+                    
+                    <input
+                        defaultValue={passwordLength}
+                        onChange={(e) => setPasswordLength(e.target.value)}
+                        type='number'
+                        id='password-strength'
+                        name='password-strength'
+                        min='0'
+                    />
+                    :
+                    <input 
+                        type="range"
+                        defaultValue={passwordLength}
+                        onChange={(e) => setPasswordLength(e.target.value)}
+                        id='password-strength-input'
+                        name='password-strength'
+                        min='0'
+                        max='30'
+                    />
+                    }
+                </div>
+                <div>
+                    <div>
+                        <label htmlFor='uppercase-letters'>Include Uppercase Letters</label>
+                        <input
+                            checked={includeUppercase}
+                            onChange={(e) => setIncludeUppercase(e.target.checked)}
+                            type='checkbox'
+                            id='uppercase-letters'
+                            name='uppercase-letters'
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor='lowercase-letters'>Include Lowercase Letters</label>
+                        <input
+                            checked={includeLowercase}
+                            onChange={(e) => setIncludeLowercase(e.target.checked)}
+                            type='checkbox'
+                            id='lowercase-letters'
+                            name='lowercase-letters'
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor='include-numbers'>Include Numbers</label>
+                        <input
+                            checked={includeNumbers}
+                            onChange={(e) => setIncludeNumbers(e.target.checked)}
+                            type='checkbox'
+                            id='include-numbers'
+                            name='include-numbers'
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor='include-symbols'>Include Symbols</label>
+                        <input
+                            checked={includeSymbols}
+                            onChange={(e) => setIncludeSymbols(e.target.checked)}
+                            type='checkbox'
+                            id='include-symbols'
+                            name='include-symbols'
+                        />
+                    </div>
+                </div>
+            </div>
+            {passwordLength <= 30 ? 
+                <div className="display-password">
+                    
+                        <p className="password">
+                            <button 
+                                onClick={handleCopyPassword}
+                                className="copy-icon">
+                                    <ion-icon style={{ verticalAlign: 'middle'}}  name="clipboard-outline"></ion-icon> Copy password 
+                            </button>
+                            <br /><br />
+                            <span>
+                                {password}
+                            </span>
+                        </p>
+                </div>
                 :
-                <input 
-                    type="range"
-                    defaultValue={passwordLength}
-                    onChange={(e) => setPasswordLength(e.target.value)}
-                    id='password-strength'
-                    name='password-strength'
-                    min='0'
-                    max='20'
-                />
+                    <div className="display-password-l">
+                        <p className="password">
+                            <button 
+                                onClick={handleCopyPassword}
+                                className="copy-icon"><ion-icon style={{ verticalAlign: 'middle'}}  name="clipboard-outline"></ion-icon> Copy Password 
+                            </button><br /><br />
+                            <span>{password}</span>
+                            
+                        </p>
+                    </div>
                 }
-            </div>
-            <div>
-                <div>
-                    <label htmlFor='uppercase-letters'>Include Uppercase Letters</label>
-                    <input
-                        checked={includeUppercase}
-                        onChange={(e) => setIncludeUppercase(e.target.checked)}
-                        type='checkbox'
-                        id='uppercase-letters'
-                        name='uppercase-letters'
-                    />
-                </div>
-                <div>
-                    <label htmlFor='lowercase-letters'>Include Lowercase Letters</label>
-                    <input
-                        checked={includeLowercase}
-                        onChange={(e) => setIncludeLowercase(e.target.checked)}
-                        type='checkbox'
-                        id='lowercase-letters'
-                        name='lowercase-letters'
-                    />
-                </div>
-                <div>
-                    <label htmlFor='include-numbers'>Include Numbers</label>
-                    <input
-                        checked={includeNumbers}
-                        onChange={(e) => setIncludeNumbers(e.target.checked)}
-                        type='checkbox'
-                        id='include-numbers'
-                        name='include-numbers'
-                    />
-                </div>
-                <div>
-                    <label htmlFor='include-symbols'>Include Symbols</label>
-                    <input
-                        checked={includeSymbols}
-                        onChange={(e) => setIncludeSymbols(e.target.checked)}
-                        type='checkbox'
-                        id='include-symbols'
-                        name='include-symbols'
-                    />
-                </div>
-            </div>
-            <p><button 
-                onClick={handleCopyPassword}
-                className="copy-icon"><ion-icon name="clipboard-outline"></ion-icon></button>{password}</p>
-        </div>
+            
+        </>
     )
 }
 
