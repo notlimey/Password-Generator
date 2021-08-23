@@ -142,21 +142,6 @@ function Generator() {
     return (
         <>
             <div className="Generator">
-                <div className="longer-than-30">
-                    <lable>More than 30 characters long? </lable>
-                    <input 
-                        onChange={(e) => setMoreThan20(e.target.checked)}
-                        type="checkbox"
-                        id='more-than-20'
-                        name='more-than-20'
-                        checked={moreThan20}
-                    />
-                </div>
-                <div className="generator__btn_div">
-                    <button onClick={handleGeneratePassword} className='generator__btn'>
-                    <LockOutlinedIcon style={{verticalAlign: 'middle'}} /> <span style={{verticalAlign: 'middle'}}>Generate Password</span>
-                    </button>
-                </div>
                 
                 <ToastContainer
                     position='top-right'
@@ -170,7 +155,7 @@ function Generator() {
                     pauseOnHover
                 />
                 <div className="length">
-                    <label htmlFor='password-strength'>Length: </label>
+                    <label htmlFor='password-strength'>Set length: </label>
                     {moreThan20 ? 
                     
                     <input
@@ -233,6 +218,11 @@ function Generator() {
                             id='include-symbols'
                             name='include-symbols'
                         />
+                    </div>
+                    <div className="generator__btn_div">
+                        <button onClick={handleGeneratePassword} className='generator__btn'>
+                        <LockOutlinedIcon style={{verticalAlign: 'middle'}} /> <span style={{verticalAlign: 'middle'}}>Generate Password</span>
+                        </button>
                     </div>
                 </div>
             </div>
