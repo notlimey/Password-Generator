@@ -11,8 +11,6 @@ import {
     specialCharacters,
 } from './characters'
 
-const COPY_SUCCESS = 'Password successfully copied to clipboard'
-
 function Generator() {
 
 
@@ -135,7 +133,7 @@ function Generator() {
             notify('Nothing To Copy', true)
         } else {
             copyToClipboard()
-            notify(COPY_SUCCESS)
+            notify("Password successfully copied to clipboard")
         }
     }
 
@@ -182,6 +180,7 @@ function Generator() {
                     <div>
                         <label htmlFor='uppercase-letters'>Include Uppercase Letters</label>
                         <input
+                            className="include-checkbox"
                             checked={includeUppercase}
                             onChange={(e) => setIncludeUppercase(e.target.checked)}
                             type='checkbox'
@@ -192,6 +191,7 @@ function Generator() {
                     <div>
                         <label htmlFor='lowercase-letters'>Include Lowercase Letters</label>
                         <input
+                            className="include-checkbox"
                             checked={includeLowercase}
                             onChange={(e) => setIncludeLowercase(e.target.checked)}
                             type='checkbox'
@@ -202,6 +202,7 @@ function Generator() {
                     <div>
                         <label htmlFor='include-numbers'>Include Numbers</label>
                         <input
+                            className="include-checkbox"
                             checked={includeNumbers}
                             onChange={(e) => setIncludeNumbers(e.target.checked)}
                             type='checkbox'
@@ -212,6 +213,7 @@ function Generator() {
                     <div>
                         <label htmlFor='include-symbols'>Include Symbols</label>
                         <input
+                            className="include-checkbox"
                             checked={includeSymbols}
                             onChange={(e) => setIncludeSymbols(e.target.checked)}
                             type='checkbox'
@@ -221,7 +223,7 @@ function Generator() {
                     </div>
                     <div className="generator__btn_div">
                         <button onClick={handleGeneratePassword} className='generator__btn'>
-                        <LockOutlinedIcon style={{verticalAlign: 'middle'}} /> <span style={{verticalAlign: 'middle'}}>Generate Password</span>
+                        <LockOutlinedIcon className="LockIconButton" /> <span className="verticalAlign">Generate Password</span>
                         </button>
                     </div>
                 </div>

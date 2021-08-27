@@ -125,3 +125,11 @@ button.copy-icon {
   font-family: 'Poppins', sans-serif;
   font-weight: 300;
 }
+
+.LockIconButton {
+  vertical-align: middle;
+}
+
+.verticalAlign {
+  vertical-align: middle !important;
+}
