@@ -23,12 +23,8 @@ function Generator() {
     const [includeSymbols, setIncludeSymbols] = useState(true)
     
     useEffect(() => {
-        if(passwordLength >= 30) {
-            setPassword(password);
-        }else {
-            setPassword(password.slice(0, 20))
-        }
-    }, [passwordLength, password])
+        setPassword('');
+    }, [passwordLength, includeUppercase, includeLowercase, includeNumbers, includeSymbols])
 
     function handleGeneratePassword() {
         if (
