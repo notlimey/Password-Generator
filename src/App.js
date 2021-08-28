@@ -10,7 +10,7 @@ function App() {
         <Generator />
       </section>
       <footer id="footer">
-        <p>Created with <FavoriteOutlinedIcon className="heart-icon"/> by <a href="https://github.com/NotLimey" rel="noreferrer" target="_blank">Limey</a></p>
+        <p>Created with <FavoriteOutlinedIcon className="heart-icon"/> by <a href="https://github.com/NotLimey" rel="noreferrer" target="_blank">LIMEY</a></p>
       </footer>
     </>
   );
