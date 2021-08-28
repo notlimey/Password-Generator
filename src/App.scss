@@ -113,6 +113,7 @@ input[type=number] {
 
 body {
   background-color: var(--primary);
+  margin: 0;
 }
 
 .title {
@@ -253,6 +254,36 @@ body {
 	margin-top: 80px;
 }
 
+#page {
+	min-height: 85vh;
+}
+
+#footer {
+	width: 100%;
+	min-height: 15vh;          /* Footer height */
+	background-color: rgb(31, 31, 34);
+}
+
+#footer p {
+	padding-top: 30px;
+	text-align: center;
+	color: #f1f1f1;
+	font-size: 24px;
+}
+
+#footer p a{
+	color: #f1f1f1;
+}
+
+#footer p a:hover{
+	color: #cacaca;
+}
+
+#footer .heart-icon {
+	vertical-align: middle;
+	color: #a83f39;
+}
+
 @media screen and (max-width: 700px) {
 	.length input {
 		width: 50vw;
@@ -317,5 +348,9 @@ body {
 		width: fit-content;
 		max-width: 100%;
 		font-size: 15px;
+	}
+
+	#footer p {
+		font-size: 18px;
 	}
 }

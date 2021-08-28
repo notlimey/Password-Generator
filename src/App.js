@@ -1,11 +1,17 @@
 import './App.scss';
 import Generator from './components/Generator';
+import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
 
 function App() {
   return (
     <>
-      <h1 className="title">Password generator</h1>
-      <Generator />
+      <section id="page">
+        <h1 className="title">Password generator</h1>
+        <Generator />
+      </section>
+      <footer id="footer">
+        <p>Created with <FavoriteOutlinedIcon className="heart-icon"/> by <a href="https://github.com/NotLimey" rel="noreferrer" target="_blank">Limey</a></p>
+      </footer>
     </>
   );
 }
