@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import {
     numbers,
     upperCaseLetters,
@@ -14,9 +15,8 @@ import {
 function Generator() {
 
 
-    const [moreThan20, setMoreThan20] = useState(true);
     const [password, setPassword] = useState('')
-    const [passwordLength, setPasswordLength] = useState(35)
+    const [passwordLength, setPasswordLength] = useState(12)
     const [includeUppercase, setIncludeUppercase] = useState(true)
     const [includeLowercase, setIncludeLowercase] = useState(true)
     const [includeNumbers, setIncludeNumbers] = useState(true)
@@ -31,12 +31,12 @@ function Generator() {
           ) {
             return;
         }
-        
-        if(moreThan20 === false && passwordLength >= 31){
-            setPasswordLength(30);
+        if(password === undefined || password === null || password <= 0) {
+            return;
         }
+
         handleGeneratePassword();
-    }, [moreThan20, passwordLength, includeLowercase, includeNumbers, includeUppercase, includeSymbols])
+    }, [passwordLength, includeLowercase, includeNumbers, includeUppercase, includeSymbols])
 
     const handleGeneratePassword = (e) => {
         if (
@@ -153,9 +153,7 @@ function Generator() {
                     pauseOnHover
                 />
                 <div className="length">
-                    <label htmlFor='password-strength'>Set length: </label>
-                    {moreThan20 ? 
-                    
+                    <label htmlFor='password-strength'>Set length: </label><br />
                     <input
                         defaultValue={passwordLength}
                         onChange={(e) => setPasswordLength(e.target.value)}
@@ -164,98 +162,105 @@ function Generator() {
                         name='password-strength'
                         min='0'
                     />
-                    :
-                    <input 
-                        type="range"
-                        defaultValue={passwordLength}
-                        onChange={(e) => setPasswordLength(e.target.value)}
-                        id='password-strength-input'
-                        name='password-strength'
-                        min='0'
-                        max='30'
-                    />
-                    }
                 </div>
-                <div>
-                    <div>
-                        <label htmlFor='uppercase-letters'>Include Uppercase Letters</label>
-                        <input
-                            className="include-checkbox"
-                            checked={includeUppercase}
-                            onChange={(e) => setIncludeUppercase(e.target.checked)}
-                            type='checkbox'
-                            id='uppercase-letters'
-                            name='uppercase-letters'
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor='lowercase-letters'>Include Lowercase Letters</label>
-                        <input
-                            className="include-checkbox"
-                            checked={includeLowercase}
-                            onChange={(e) => setIncludeLowercase(e.target.checked)}
-                            type='checkbox'
-                            id='lowercase-letters'
-                            name='lowercase-letters'
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor='include-numbers'>Include Numbers</label>
-                        <input
-                            className="include-checkbox"
-                            checked={includeNumbers}
-                            onChange={(e) => setIncludeNumbers(e.target.checked)}
-                            type='checkbox'
-                            id='include-numbers'
-                            name='include-numbers'
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor='include-symbols'>Include Symbols</label>
-                        <input
-                            className="include-checkbox"
-                            checked={includeSymbols}
-                            onChange={(e) => setIncludeSymbols(e.target.checked)}
-                            type='checkbox'
-                            id='include-symbols'
-                            name='include-symbols'
-                        />
-                    </div>
-                    <div className="generator__btn_div">
-                        <button onClick={handleGeneratePassword} className='generator__btn'>
-                        <LockOutlinedIcon className="LockIconButton" /> <span className="verticalAlign">Generate Password</span>
-                        </button>
-                    </div>
+                <div className="generator-options">
+                        <label class="toggle" for="includeUppercase">
+                            Include uppercase letters
+                            <input type="checkbox" class="toggle__input" id="includeUppercase" 
+                                checked={includeUppercase}
+                                onChange={(e) => setIncludeUppercase(e.target.checked)}
+                            />
+                            <span class="toggle-track">
+                                <span class="toggle-indicator">
+                                    <span class="checkMark">
+                                        <svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true">
+                                            <path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="toggle" for="includeLowercase">
+                            Include lowercase letters
+                            <input type="checkbox" class="toggle__input" id="includeLowercase" 
+                                checked={includeLowercase}
+                                onChange={(e) => setIncludeLowercase(e.target.checked)}
+                            />
+                            <span class="toggle-track">
+                                <span class="toggle-indicator">
+                                    <span class="checkMark">
+                                        <svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true">
+                                            <path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="toggle" for="includeNumbers">
+                            Include numbers
+                            <input type="checkbox" class="toggle__input" id="includeNumbers" 
+                                checked={includeNumbers}
+                                onChange={(e) => setIncludeNumbers(e.target.checked)}
+                            />
+                            <span class="toggle-track">
+                                <span class="toggle-indicator">
+                                    <span class="checkMark">
+                                        <svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true">
+                                            <path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="toggle" for="includeSymbols">
+                            Include symbols
+                            <input type="checkbox" class="toggle__input" id="includeSymbols" 
+                                checked={includeSymbols}
+                                onChange={(e) => setIncludeSymbols(e.target.checked)}
+                            />
+                            <span class="toggle-track">
+                                <span class="toggle-indicator">
+                                    <span class="checkMark">
+                                        <svg viewBox="0 0 24 24" id="ghq-svg-check" role="presentation" aria-hidden="true">
+                                            <path d="M9.86 18a1 1 0 01-.73-.32l-4.86-5.17a1.001 1.001 0 011.46-1.37l4.12 4.39 8.41-9.2a1 1 0 111.48 1.34l-9.14 10a1 1 0 01-.73.33h-.01z"></path>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </span>
+                        </label>
+                </div>
+                <div className="generator__btn_div">
+                    <button onClick={handleGeneratePassword} className='generator__btn'>
+                    <LockOutlinedIcon className="LockIconButton" /> <span className="verticalAlign">Generate Password</span>
+                    </button>
                 </div>
             </div>
-            {passwordLength <= 30 ? 
-                <div className="display-password">
-                    
-                        <p className="password">
-                            <button 
-                                onClick={handleCopyPassword}
-                                className="copy-icon">
-                                    <ion-icon style={{ verticalAlign: 'middle'}}  name="clipboard-outline"></ion-icon> Copy password 
-                            </button>
-                            <br /><br />
-                            <span>
-                                {password}
-                            </span>
-                        </p>
-                </div>
-                :
-                    <div className="display-password-l">
-                        <p className="password">
-                            <button 
-                                onClick={handleCopyPassword}
-                                className="copy-icon"><ion-icon style={{ verticalAlign: 'middle'}}  name="clipboard-outline"></ion-icon> Copy Password 
-                            </button><br /><br />
-                            <span>{password}</span>
-                            
-                        </p>
-                    </div>
-                }
+            <div className="space__"></div>
             
+                {passwordLength <= 30 ? 
+                    <>
+                    
+                        <div className="password">
+                            <p className="short-psw">{password}</p>
+                        </div>
+                        <div className="copy__button">
+                            <button onClick={handleCopyPassword}>
+                            <FileCopyOutlinedIcon className="copyButtonIcon" /> <span className="verticalAlign">Copy password</span>
+                            </button>
+                        </div>
+                    </>
+                : 
+                    <>
+                        <div className="copy__button">
+                            <button onClick={handleCopyPassword}>
+                            <FileCopyOutlinedIcon className="copyButtonIcon" /> <span className="verticalAlign">Copy password</span>
+                            </button>
+                        </div>
+                        <div className="password">
+                            <p className="long-psw">{password}</p>
+                        </div>
+                    </>
+                }
         </>
     )
 }

@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import Generator from './components/Generator';
 
 function App() {

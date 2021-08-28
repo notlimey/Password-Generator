@@ -1,0 +1,321 @@
+:root {
+  --primary: rgb(30, 30, 37);
+  --secondary: #5cb85c;
+} 
+
+$toggle-indicator-size: 24px; // changing this number will resize the whole toggle
+$track-height: $toggle-indicator-size + 6;
+$track-width: $toggle-indicator-size * 2.5;
+$highContrastModeSupport: solid 2px transparent;
+$checkbox-background: #333333;
+$checkbox-border: #222;
+$checkbox-ball: var(--secondary);
+$focus-ring: 0px 0px 0px 2px $checkbox-ball;
+$green-shade: #3f7d3f;
+
+// Toggle specific styles
+.toggle {
+	align-items: center;
+	border-radius: 100px;
+	display: flex;
+	text-align: end;
+	font-weight: 400;
+	margin-bottom: 16px;
+
+	&:last-of-type {
+		margin: 0;
+	}
+}
+
+// Since we can't style the checkbox directly, we "hide" it so we can draw the toggle.
+.toggle__input {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+
+	// This style sets the focus ring. The ":not([disabled])" prevents the focus ring from creating a flash when the element is clicked.
+	&:not([disabled]):active + .toggle-track,
+	&:not([disabled]):focus + .toggle-track {
+		border: 1px solid transparent;
+		box-shadow: $focus-ring;
+	}
+
+	&:disabled + .toggle-track {
+		cursor: not-allowed;
+		opacity: 0.7;
+	}
+}
+
+.toggle-track {
+	background: $checkbox-background;
+	border: 1px solid $checkbox-border;
+	border-radius: 100px;
+	cursor: pointer;
+	display: flex;
+	height: $track-height;
+	margin-right: 12px;
+	position: relative;
+	width: $track-width;
+	margin-left: 60px;
+}
+
+.toggle-indicator {
+	align-items: center;
+	background: $checkbox-ball;
+	border-radius: $toggle-indicator-size;
+	bottom: 2px;
+	display: flex;
+	height: $toggle-indicator-size;
+	justify-content: center;
+	left: 2px;
+	outline: $highContrastModeSupport;
+	position: absolute;
+	transition: .3s;
+	width: $toggle-indicator-size;
+}
+
+// The check mark is optional
+.checkMark {
+	fill: #fff;
+	height: $toggle-indicator-size - 4;
+	width: $toggle-indicator-size - 4;
+	opacity: 0;
+	transition: opacity .3s ease-in-out;
+}
+
+.toggle__input:checked + .toggle-track .toggle-indicator {
+	background: $checkbox-ball;
+	transform: translateX($track-width - $track-height);
+
+	.checkMark {
+		opacity: 1;
+		transition: opacity .3s ease-in-out;
+	}
+}
+
+@media screen and (-ms-high-contrast: active) {
+	.toggle-track {
+		border-radius: 0;
+	}
+}
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+body {
+  background-color: var(--primary);
+}
+
+.title {
+  color: #fff;
+  font-family: 'Red Hat Display';
+  font-weight: 500;
+  font-size: 44px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.length {
+  color: #fff;
+  font-family: 'Poppins';
+  justify-content: center;
+  text-align: center;
+}
+.length label {
+  font-size: 20px;
+}
+
+.length input {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-family: 'Poppins';
+  text-align: center;
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: 300;
+  border-bottom: var(--secondary) 2px solid;
+  width: 400px;
+  transition: .4s all;
+}
+
+.length input:focus {
+  width: 600px;
+  transition: .4s all;
+}
+
+.generator-options {
+  margin: 40px auto;
+  width: 450px;
+  text-align: center;
+  color: #fff;
+  font-family: 'Poppins';
+}
+
+.generator-options .toggle {
+  margin: 12px 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.generator__btn_div, .copy__button {
+	margin: 0 auto;
+	width: fit-content;
+}
+
+.generator__btn_div button {
+	background-color: transparent;
+	padding: 10px 50px;
+	color: #fff;
+	font-family: 'Poppins';
+	border-radius: 10px;
+	border: var(--secondary) 1px solid;
+	transition: .3s;
+	cursor: pointer;
+}
+
+.generator__btn_div button:hover {
+	// color: var(--secondary);
+	background-color: $green-shade;
+	border-color: $green-shade;
+	color: #f1f1f1;
+	transition: .3s;
+}
+
+.generator__btn_div button .LockIconButton,  .generator__btn_div button span {
+	vertical-align: middle;
+}
+
+.copy__button button {
+	background-color: transparent;
+	padding: 10px 50px;
+	color: #fff;
+	font-family: 'Poppins';
+	border-radius: 10px;
+	border: var(--secondary) 1px solid;
+	transition: .3s;
+	cursor: pointer;
+}
+
+.copy__button button:hover {
+	// color: var(--secondary);
+	background-color: $green-shade;
+	border-color: $green-shade;
+	color: #f1f1f1;
+	transition: .3s;
+}
+
+.copy__button button .copyButtonIcon,  .copy__button button span {
+	vertical-align: middle;
+}
+
+.short-psw {
+	background-color: $checkbox-background;
+	color: #f1f1f1;
+	padding: 5px 10px;
+	width: 300px;
+	border-radius: 10px;
+	border: $checkbox-border;
+	font-size: 20px;
+	text-align: center;
+	font-family: 'Poppins';
+}
+
+.long-psw {
+	background-color: $checkbox-background;
+	color: #f1f1f1;
+	padding: 5px 10px;
+	width: 100%;
+	border-radius: 10px;
+	border: $checkbox-border;
+	font-size: 20px;
+	text-align: center;
+	font-family: 'Poppins';
+	word-break: break-all;
+}
+
+.password {
+	width: fit-content;
+	max-width: 90%;
+	margin: 0 auto;
+}
+
+.space__ {
+	margin-top: 80px;
+}
+
+@media screen and (max-width: 700px) {
+	.length input {
+		width: 50vw;
+	}
+	
+	.length input:focus {
+		width: 90vw;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.title {
+		font-size: 10vw;
+	}
+
+	.generator-options {
+		width: 90vw;
+	}
+
+	.toggle {
+		font-size: 3vw;
+	}
+
+	.toggle-track {
+		margin-left: 10px;
+		height: 20px;
+		width: 44px;
+	}
+
+	.toggle-indicator {
+		width: 16px;
+		height: 16px;
+	}
+
+	.checkMark {
+		width: 16px;
+		height: 16px;
+	}
+
+	.toggle__input:checked + .toggle-track .toggle-indicator {
+		background: $checkbox-ball;
+		transform: translateX(44px - 20px);
+	
+		.checkMark {
+			opacity: 1;
+			transition: opacity .3s ease-in-out;
+		}
+	}
+
+	.generator-options .toggle {
+		margin: 6px 0;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.generator__btn_div button, .copy__button button {
+		padding: 3px 8px;
+		font-size: 10px;
+	}
+
+	.short-psw {
+		width: fit-content;
+		max-width: 100%;
+		font-size: 15px;
+	}
+}
