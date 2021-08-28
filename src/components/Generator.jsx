@@ -23,22 +23,14 @@ function Generator() {
     const [includeSymbols, setIncludeSymbols] = useState(true)
     
     useEffect(() => {
-        if (
-            !includeUppercase &&
-            !includeLowercase &&
-            !includeNumbers &&
-            !includeSymbols
-          ) {
-            return;
+        if(passwordLength >= 30) {
+            setPassword(password);
+        }else {
+            setPassword(password.slice(0, 20))
         }
-        if(password === undefined || password === null || password <= 0) {
-            return;
-        }
+    }, [passwordLength, password])
 
-        handleGeneratePassword();
-    }, [passwordLength, includeLowercase, includeNumbers, includeUppercase, includeSymbols])
-
-    const handleGeneratePassword = (e) => {
+    function handleGeneratePassword() {
         if (
           !includeUppercase &&
           !includeLowercase &&
