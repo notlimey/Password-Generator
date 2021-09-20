@@ -120,7 +120,7 @@ function Generator() {
             notify('Nothing To Copy', true)
         } else {
             copyToClipboard()
-            notify("Password successfully copied to clipboard")
+            toast.success("Password successfully copied to clipboard");
         }
     }
 
@@ -230,7 +230,7 @@ function Generator() {
                     <>
                         {passwordLength <= 0 || password === undefined || password === "" ? <></> :
                         <>
-                            <div className="password">
+                            <div onClick={handleCopyPassword} className="password">
                                 <p className="short-psw">{password}</p>
                             </div>
                             <div className="copy__button">
@@ -249,7 +249,7 @@ function Generator() {
                             <FileCopyOutlinedIcon className="copyButtonIcon" /> <span className="verticalAlign">Copy password</span>
                             </button>
                         </div>
-                        <div className="password">
+                        <div onClick={handleCopyPassword} className="password">
                             <p className="long-psw">{password}</p>
                         </div>
                         </>}
