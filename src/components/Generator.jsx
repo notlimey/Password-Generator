@@ -13,8 +13,6 @@ import {
 } from './characters'
 
 function Generator() {
-
-
     const [password, setPassword] = useState('')
     const [passwordLength, setPasswordLength] = useState(12)
     const [includeUppercase, setIncludeUppercase] = useState(true)
@@ -56,12 +54,13 @@ function Generator() {
     
         setPassword(createPassword(characterList))
     }
+    
     const createPassword = (characterList) => {
         let password = ''
         const characterListLength = characterList.length
 
         if(passwordLength <= 0) {
-            notify('Password cant be equal or less than 0', true)
+            toast.error('Password cant be equal or less than 0', true)
             return
         }
     
@@ -124,6 +123,8 @@ function Generator() {
             notify("Password successfully copied to clipboard")
         }
     }
+
+    console.log(password);
 
     return (
         <>
@@ -227,18 +228,22 @@ function Generator() {
             
                 {passwordLength <= 30 ? 
                     <>
-                    
-                        <div className="password">
-                            <p className="short-psw">{password}</p>
-                        </div>
-                        <div className="copy__button">
-                            <button onClick={handleCopyPassword}>
-                            <FileCopyOutlinedIcon className="copyButtonIcon" /> <span className="verticalAlign">Copy password</span>
-                            </button>
-                        </div>
+                        {passwordLength <= 0 || password === undefined || password === "" ? <></> :
+                        <>
+                            <div className="password">
+                                <p className="short-psw">{password}</p>
+                            </div>
+                            <div className="copy__button">
+                                <button onClick={handleCopyPassword}>
+                                <FileCopyOutlinedIcon className="copyButtonIcon" /> <span className="verticalAlign">Copy password</span>
+                                </button>
+                            </div>
+                        </> }
                     </>
                 : 
                     <>
+                        {password === "" ? <></> :
+                        <>
                         <div className="copy__button">
                             <button onClick={handleCopyPassword}>
                             <FileCopyOutlinedIcon className="copyButtonIcon" /> <span className="verticalAlign">Copy password</span>
@@ -247,6 +252,7 @@ function Generator() {
                         <div className="password">
                             <p className="long-psw">{password}</p>
                         </div>
+                        </>}
                     </>
                 }
         </>
